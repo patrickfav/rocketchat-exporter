@@ -2,7 +2,7 @@
 
 A simple Java CLI to export the messages of a Rocket Chat group to a Slack compatible format.
 
-[![Build Status](https://travis-ci.org/patrickfav/rocket-chat-exporter.svg?branch=master)](https://travis-ci.org/patrickfav/rocket-chat-exporter)
+[![Build Status](https://travis-ci.org/patrickfav/rocketchat-exporter.svg?branch=master)](https://travis-ci.org/patrickfav/rocketchat-exporter)
 
 
 ## Quickstart

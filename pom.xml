@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>at.favre.tools</groupId>
-    <artifactId>rocket-chat-exporter</artifactId>
+    <artifactId>rocketchat-exporter</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
@@ -13,7 +13,7 @@
     <description>A simple exporter using the rocket chat public REST APIs to export chats and converts it to a slack
         format
     </description>
-    <url>https://github.com/patrickfav/rocket-chat-exporter</url>
+    <url>https://github.com/patrickfav/rocketchat-exporter</url>
     <inceptionYear>2019</inceptionYear>
 
     <properties>
@@ -197,19 +197,19 @@
     </licenses>
 
     <scm>
-        <connection>https://github.com/patrickfav/rocket-chat-exporter.git</connection>
-        <developerConnection>https://github.com/patrickfav/rocket-chat-exporter.git</developerConnection>
+        <connection>https://github.com/patrickfav/rocketchat-exporter.git</connection>
+        <developerConnection>https://github.com/patrickfav/rocketchat-exporter.git</developerConnection>
         <tag>HEAD</tag>
-        <url>https://github.com/patrickfav/rocket-chat-exporter</url>
+        <url>https://github.com/patrickfav/rocketchat-exporter</url>
     </scm>
 
     <issueManagement>
         <system>Github</system>
-        <url>https://github.com/patrickfav/rocket-chat-exporter/issues</url>
+        <url>https://github.com/patrickfav/rocketchat-exporter/issues</url>
     </issueManagement>
 
     <ciManagement>
         <system>Travis</system>
-        <url>https://travis-ci.org/patrickfav/rocket-chat-exporter</url>
+        <url>https://travis-ci.org/patrickfav/rocketchat-exporter</url>
     </ciManagement>
 </project>
