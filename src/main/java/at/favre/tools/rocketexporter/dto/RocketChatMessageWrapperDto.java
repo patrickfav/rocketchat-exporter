@@ -32,23 +32,23 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class RocketChatMessageWrapperDto {
-    public List<Message> messages;
+    private List<Message> messages;
 
     @Data
     @AllArgsConstructor
     public static class Message {
-        public String _id;
-        public String rid;
-        public String msg;
-        public String ts;
-        public User u;
+        private String _id;
+        private String rid;
+        private String msg;
+        private String ts;
+        private User u;
 
         @Data
         @AllArgsConstructor
         public static class User {
-            public String _id;
-            public String username;
-            public String name;
+            private String _id;
+            private String username;
+            private String name;
         }
     }
 }
