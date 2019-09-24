@@ -29,7 +29,7 @@ public interface RocketChatService {
     @POST("/api/v1/login")
     Call<LoginResponseDto> login(@Body LoginDto request);
 
-    @GET("/api/v1/groups.messages")
+    @GET("/api/v1/groups.history")
     Call<RocketChatMessageWrapperDto> getAllMessagesFromGroup(@HeaderMap Map<String, String> header, @Query("roomId") String roomId, @Query("offset") long offset, @Query("count") long count);
 
     @GET("/api/v1/groups.list")
