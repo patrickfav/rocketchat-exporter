@@ -8,7 +8,7 @@ jdk:
   - openjdk11
 
 script:
-  - ./mvnw clean install -X checkstyle:check
+  - ./mvnw clean install checkstyle:check
 
 deploy:
   - provider: releases
