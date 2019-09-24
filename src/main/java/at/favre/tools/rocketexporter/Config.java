@@ -10,6 +10,4 @@ import java.net.URI;
 public class Config {
     private final URI host;
     private final boolean httpDebugOutput;
-    private final long msDelayBetweenRequests;
-    private final int messagesCountPerRequest;
 }

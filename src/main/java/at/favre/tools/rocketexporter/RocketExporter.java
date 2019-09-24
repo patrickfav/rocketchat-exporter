@@ -29,13 +29,11 @@ public class RocketExporter {
             new RocketExporter(Config.builder()
                     .host(URI.create("url"))
                     .httpDebugOutput(false)
-                    .msDelayBetweenRequests(2000)
-                    .messagesCountPerRequest(50)
                     .build())
                     .login(new LoginDto("USER", "PW"))
                     .exportPrivateGroupMessages(
                             "mobile-random", "GROUP_MOBILE_RANDOM",
-                            300, 400,
+                            0, 2000,
                             new SlackCsvFormat());
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,38 +67,26 @@ public class RocketExporter {
                                                      ExportFormat exportFormat) throws IOException {
         checkAuthenticated();
 
-        final int msgPerRequest = config.getMessagesCountPerRequest();
 
         Map<Long, Message> normalizedMessages = new HashMap<>();
-        for (int i = offset; i <= maxMessageCount; i += msgPerRequest) {
-            Response<RocketChatMessageWrapperDto> response =
-                    getService().getAllMessagesFromGroup(authHeaders, roomId, i, msgPerRequest).execute();
-            RocketChatMessageWrapperDto messagesBody;
+        Response<RocketChatMessageWrapperDto> response =
+            getService().getAllMessagesFromGroup(authHeaders, roomId, offset, maxMessageCount).execute();
+        RocketChatMessageWrapperDto messagesBody;
 
-            if (response.code() == 429) {
-                //got too many requests error, retry
-                i -= msgPerRequest;
-            } else if (response.code() == 200 && (messagesBody = response.body()) != null) {
-                for (RocketChatMessageWrapperDto.Message message : messagesBody.getMessages()) {
-                    Instant timestamp = Instant.parse(message.getTs());
+        if (response.code() == 200 && (messagesBody = response.body()) != null) {
+            for (RocketChatMessageWrapperDto.Message message : messagesBody.getMessages()) {
+                Instant timestamp = Instant.parse(message.getTs());
 
-                    normalizedMessages.put(timestamp.toEpochMilli(),
-                            new Message(
-                                    message.getMsg(),
-                                    message.getU().getName(),
-                                    roomName,
-                                    timestamp
-                            ));
-                }
-            } else {
-                throw new IllegalStateException("error response: " + response.code());
+                normalizedMessages.put(timestamp.toEpochMilli(),
+                    new Message(
+                        message.getMsg(),
+                        message.getU().getName(),
+                        roomName,
+                        timestamp
+                    ));
             }
-
-            try {
-                Thread.sleep(config.getMsDelayBetweenRequests());
-            } catch (InterruptedException e) {
-                throw new IllegalStateException("sleep was interrupted", e);
-            }
+        } else {
+            throw new IllegalStateException("error response: " + response.code());
         }
 
         List<Message> normalizedMessagesList = new ArrayList<>(normalizedMessages.values());
