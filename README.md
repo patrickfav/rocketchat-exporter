@@ -4,7 +4,7 @@ A simple Java CLI tool to export the messages of a [Rocket Chat](https://rocket.
 
 This tool uses the [RocketChat API](https://rocket.chat/docs/developer-guides/rest-api/groups/) and is useful for situations where the user does not have administrative access to the server.
 
-[![GitHub release](https://img.shields.io/github/release/patrickfav/rocketchat-exporter.svg)](https://github.com/patrickfav/rocketchat-exporter/releases/latest)[![Build Status](https://travis-ci.org/patrickfav/rocketchat-exporter.svg?branch=master)](https://travis-ci.org/patrickfav/rocketchat-exporter)[![Coverage Status](https://coveralls.io/repos/github/patrickfav/rocketchat-exporter/badge.svg?branch=master)](https://coveralls.io/github/patrickfav/rocketchat-exporter?branch=master) [![Maintainability](https://api.codeclimate.com/v1/badges/1de38f9649402c750053/maintainability)](https://codeclimate.com/github/patrickfav/rocketchat-exporter/maintainability)
+[![GitHub release](https://img.shields.io/github/release/patrickfav/rocketchat-exporter.svg)](https://github.com/patrickfav/rocketchat-exporter/releases/latest) [![Build Status](https://travis-ci.org/patrickfav/rocketchat-exporter.svg?branch=master)](https://travis-ci.org/patrickfav/rocketchat-exporter) [![Coverage Status](https://coveralls.io/repos/github/patrickfav/rocketchat-exporter/badge.svg?branch=master)](https://coveralls.io/github/patrickfav/rocketchat-exporter?branch=master)
 
 
 ## Quickstart
