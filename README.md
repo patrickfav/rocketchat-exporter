@@ -1,10 +1,11 @@
-# Rocket Chat to Slack CSV Exporter
+# Rocket Chat Exporter CLI
 
-A simple Java CLI tool to export the messages of a [Rocket Chat](https://rocket.chat/) group. Currently this only supports the [Slack CSV](https://slack.com/intl/en-au/help/articles/201748703#) output format, but adding new output format is quite eas (check out the `ExportFormat` interface).
+A simple Java CLI tool to export the messages of a [Rocket Chat](https://rocket.chat/) group. Currently this only supports the **[Slack CSV](https://slack.com/intl/en-au/help/articles/201748703#) output format**, but adding new output format is quite easy (check out the `ExportFormat` interface).
 
-This tool uses the [RocketChat API](https://rocket.chat/docs/developer-guides/rest-api/groups/) and is useful for situations where the user does not have administrative access.
+This tool uses the [RocketChat API](https://rocket.chat/docs/developer-guides/rest-api/groups/) and is useful for situations where the user does not have administrative access to the server.
 
-[![Build Status](https://travis-ci.org/patrickfav/rocketchat-exporter.svg?branch=master)](https://travis-ci.org/patrickfav/rocketchat-exporter)
+[![GitHub release](https://img.shields.io/github/release/patrickfav/rocketchat-exporter.svg)](https://github.com/patrickfav/rocketchat-exporter/releases/latest)[![Build Status](https://travis-ci.org/patrickfav/rocketchat-exporter.svg?branch=master)](https://travis-ci.org/patrickfav/rocketchat-exporter)[![Coverage Status](https://coveralls.io/repos/github/patrickfav/rocketchat-exporter/badge.svg?branch=master)](https://coveralls.io/github/patrickfav/rocketchat-exporter?branch=master) [![Maintainability](https://api.codeclimate.com/v1/badges/1de38f9649402c750053/maintainability)](https://codeclimate.com/github/patrickfav/rocketchat-exporter/maintainability)
+
 
 ## Quickstart
 
