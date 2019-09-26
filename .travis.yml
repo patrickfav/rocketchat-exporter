@@ -10,6 +10,9 @@ jdk:
 script:
   - ./mvnw clean install checkstyle:check
 
+after_success:
+  - ./mvnw test jacoco:report coveralls:report
+
 deploy:
   - provider: releases
     api_key:

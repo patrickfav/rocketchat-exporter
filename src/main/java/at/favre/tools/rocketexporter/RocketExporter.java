@@ -31,7 +31,7 @@ public interface RocketExporter {
      * @return this
      * @throws IOException
      */
-    RocketExporter login(LoginDto login) throws IOException;
+    LoginResponseDto login(LoginDto login) throws IOException;
 
     /**
      * Get all accessible groups/channels. Requires login first.
@@ -52,9 +52,9 @@ public interface RocketExporter {
      * @return exported messages
      * @throws IOException
      */
-    RocketExporter exportPrivateGroupMessages(String roomName, String roomId,
-                                              int offset, int maxMessageCount,
-                                              ExportFormat exportFormat) throws IOException;
+    List<Message> exportPrivateGroupMessages(String roomName, String roomId,
+                                             int offset, int maxMessageCount,
+                                             File out, ExportFormat exportFormat) throws IOException;
 
     /**
      * Creates a new instance of exporter
@@ -80,24 +80,36 @@ public interface RocketExporter {
         }
 
         @Override
-        public RocketExporter login(LoginDto login) throws IOException {
-            LoginResponseDto loginResponse = getService().login(login).execute().body();
-            authHeaders = Map.of(
-                    "X-User-Id", loginResponse.getData().getUserId(),
-                    "X-Auth-Token", loginResponse.getData().getAuthToken());
-            return this;
+        public LoginResponseDto login(LoginDto login) throws IOException {
+            Response<LoginResponseDto> loginResponse = getService().login(login).execute();
+            LoginResponseDto loginResponseBody;
+
+            if (loginResponse.code() == 401 || loginResponse.code() == 403) {
+                throw new IllegalArgumentException("invalid credentials");
+            } else if (loginResponse.code() == 200 && (loginResponseBody = loginResponse.body()) != null) {
+                authHeaders = Map.of(
+                        "X-User-Id", loginResponseBody.getData().getUserId(),
+                        "X-Auth-Token", loginResponseBody.getData().getAuthToken());
+                return loginResponseBody;
+            } else {
+                throw new IllegalStateException("error response: " + loginResponse.code());
+            }
         }
 
         @Override
         public List<RocketChatGroups.Group> listChannels() throws IOException {
             RocketChatGroups groups = getService().getAllGroups(authHeaders).execute().body();
-            return groups.getGroups();
+            if (groups != null) {
+                return groups.getGroups();
+            } else {
+                return Collections.emptyList();
+            }
         }
 
         @Override
-        public RocketExporter exportPrivateGroupMessages(String roomName, String roomId,
-                                                         int offset, int maxMessageCount,
-                                                         ExportFormat exportFormat) throws IOException {
+        public List<Message> exportPrivateGroupMessages(String roomName, String roomId,
+                                                        int offset, int maxMessageCount,
+                                                        File out, ExportFormat exportFormat) throws IOException {
             checkAuthenticated();
 
 
@@ -125,13 +137,11 @@ public interface RocketExporter {
             List<Message> normalizedMessagesList = new ArrayList<>(normalizedMessages.values());
             normalizedMessagesList.sort(Comparator.comparingLong(m -> m.getTimestamp().toEpochMilli()));
 
-            System.out.println("Fetched " + normalizedMessagesList.size() + " messages for " + roomName);
-
             exportFormat.export(
                     normalizedMessagesList,
-                    new FileOutputStream(new File("C:\\rocket-export.csv")));
+                    new FileOutputStream(out));
 
-            return this;
+            return normalizedMessagesList;
         }
 
         private void checkAuthenticated() {

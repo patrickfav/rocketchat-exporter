@@ -1,0 +1,14 @@
+{
+  "status": "success",
+  "data": {
+    "userId": "abcdefghiid",
+    "authToken": "token1234",
+    "me": {
+      "_id": "asldkhasödl",
+      "username": "polan.sergey",
+      "name": "Polan Sergey",
+      "email": "my@mail.com",
+      "language": "en"
+    }
+  }
+}
