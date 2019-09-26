@@ -1,8 +1,8 @@
 # Rocket Chat to Slack CSV Exporter
 
-A simple Java CLI tool to export the messages of a Rocket Chat group. Currently this only supports the Slack CSV output format, but adding new output format is quite eas (check out the `ExportFormat` interface).
+A simple Java CLI tool to export the messages of a [Rocket Chat](https://rocket.chat/) group. Currently this only supports the [Slack CSV](https://slack.com/intl/en-au/help/articles/201748703#) output format, but adding new output format is quite eas (check out the `ExportFormat` interface).
 
-This tool uses the RocketChat API and is useful for situations where the user does not have administrative access.
+This tool uses the [RocketChat API](https://rocket.chat/docs/developer-guides/rest-api/groups/) and is useful for situations where the user does not have administrative access.
 
 [![Build Status](https://travis-ci.org/patrickfav/rocketchat-exporter.svg?branch=master)](https://travis-ci.org/patrickfav/rocketchat-exporter)
 
@@ -40,7 +40,7 @@ Successfully exported 48 messages to '.\out.csv'
 
 ### Requirements
 
-* [Java Runtime Environment (JRE) 11](https://adoptopenjdk.org)
+* [Java Runtime Environment (JRE) 11](https://adoptopenjdk.net/)
 
 ## Download
 

@@ -47,17 +47,17 @@ public class RocketExporterTest {
         wireMockRule.stubFor(post(urlPathEqualTo("/api/v1/login"))
                 .willReturn(ok()
                         .withHeader("Content-Type", "application/json")
-                        .withBodyFile("/mock/example_login.json")));
+                        .withBodyFile("mock/example_login.json")));
 
         wireMockRule.stubFor(get(urlPathEqualTo("/api/v1/groups.list"))
                 .willReturn(ok()
                         .withHeader("Content-Type", "application/json")
-                        .withBodyFile("/mock/example_groups.json")));
+                        .withBodyFile("mock/example_groups.json")));
 
         wireMockRule.stubFor(get(urlPathEqualTo("/api/v1/groups.history"))
                 .willReturn(ok()
                         .withHeader("Content-Type", "api/v1/groups.history")
-                        .withBodyFile("/mock/example_messages_history.json")));
+                        .withBodyFile("mock/example_messages_history.json")));
     }
 
     @Test
