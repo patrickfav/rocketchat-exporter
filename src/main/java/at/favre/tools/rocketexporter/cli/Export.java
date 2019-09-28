@@ -123,7 +123,9 @@ class Export implements Runnable {
                 toExport.add(allConversations.get(selection));
             }
 
-            for (Conversation selectedGroup : toExport) {
+            for (int i = 0; i < toExport.size(); i++) {
+                Conversation selectedGroup = toExport.get(i);
+
                 final List<Message> messages;
                 final ExportFormat format = new SlackCsvFormat();
                 final int offset = 0;
@@ -149,6 +151,7 @@ class Export implements Runnable {
                 } catch (TooManyRequestException e) {
                     out.println("Too many requests. Slowing down...");
                     Thread.sleep(5000);
+                    i--;
                 }
             }
         } catch (Exception e) {
