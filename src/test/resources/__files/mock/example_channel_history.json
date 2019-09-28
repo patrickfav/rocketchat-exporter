@@ -1,0 +1,50 @@
+{
+  "messages": [
+    {
+      "_id": "ADJn3tYSiG37RuwXdvg",
+      "rid": "aBNcL5sTbbxabziRcPrjYKbX5shsBuWgYjG",
+      "msg": "A message 1",
+      "ts": "2019-07-22T10:00:16.455Z",
+      "u": {
+        "_id": "BNcDDsTbbxabziRcP",
+        "username": "x.ason",
+        "name": "X Ason"
+      },
+      "urls": [],
+      "mentions": [],
+      "channels": [],
+      "_updatedAt": "2019-07-22T10:00:16.523Z"
+    },
+    {
+      "_id": "aslkdjhalsdkjhs",
+      "rid": "alskdjfhasdlkjfhasdlfkjh",
+      "msg": "A message 2",
+      "ts": "2019-07-23T10:00:16.455Z",
+      "u": {
+        "_id": "adkjfhasdlkfjhsa",
+        "username": "b.bson",
+        "name": "B Bson"
+      },
+      "urls": [],
+      "mentions": [],
+      "channels": [],
+      "_updatedAt": "2019-07-23T10:00:16.523Z"
+    },
+    {
+      "_id": "CCBn3tSiG37RuwXdvg",
+      "rid": "aDDcL5sTbbxabziRcPrjYKbX5shsBuWgYjG",
+      "msg": "A message 3",
+      "ts": "2019-07-24T10:00:16.455Z",
+      "u": {
+        "_id": "dBNcL5sTbbxabziRcP",
+        "username": "C.bson",
+        "name": "C Bson"
+      },
+      "urls": [],
+      "mentions": [],
+      "channels": [],
+      "_updatedAt": "2019-07-24T10:00:16.523Z"
+    }
+  ],
+  "success": true
+}

@@ -1,8 +1,10 @@
 package at.favre.tools.rocketexporter.dto;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
+
 
 /**
  * Response list of groups accessible to a user.
@@ -57,17 +59,14 @@ import java.util.List;
  * }
  * </pre>
  */
+
 @Data
-public class RocketChatGroups {
+@EqualsAndHashCode(callSuper = true)
+public class RocketChatGroups extends Pageable {
     private List<Group> groups;
 
-    private String offset;
-    private String count;
-    private String total;
-    private String success;
-
     @Data
-    public static class Group {
+    public static class Group implements Conversation {
         private String _id;
         private String name;
         private String fname;

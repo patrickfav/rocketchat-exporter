@@ -38,4 +38,9 @@ public class SlackCsvFormat implements ExportFormat {
             }
         }
     }
+
+    @Override
+    public String fileExtension() {
+        return "csv";
+    }
 }

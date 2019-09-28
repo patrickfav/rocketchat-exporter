@@ -16,10 +16,7 @@
 
 package at.favre.tools.rocketexporter;
 
-import at.favre.tools.rocketexporter.dto.LoginDto;
-import at.favre.tools.rocketexporter.dto.LoginResponseDto;
-import at.favre.tools.rocketexporter.dto.RocketChatGroups;
-import at.favre.tools.rocketexporter.dto.RocketChatMessageWrapperDto;
+import at.favre.tools.rocketexporter.dto.*;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -29,9 +26,21 @@ public interface RocketChatService {
     @POST("/api/v1/login")
     Call<LoginResponseDto> login(@Body LoginDto request);
 
-    @GET("/api/v1/groups.history")
-    Call<RocketChatMessageWrapperDto> getAllMessagesFromGroup(@HeaderMap Map<String, String> header, @Query("roomId") String roomId, @Query("offset") long offset, @Query("count") long count);
-
-    @GET("/api/v1/groups.list")
+    @GET("/api/v1/groups.list?count=0&offset=0")
     Call<RocketChatGroups> getAllGroups(@HeaderMap Map<String, String> header);
+
+    @GET("/api/v1/channels.list?count=0&offset=0")
+    Call<RocketChatChannel> getAllChannels(@HeaderMap Map<String, String> header);
+
+    @GET("/api/v1/im.list?count=0&offset=0")
+    Call<RocketChatDm> getAllDirectMessages(@HeaderMap Map<String, String> header);
+
+    @GET("/api/v1/groups.history")
+    Call<RocketChatMessageWrapperDto> getAllMessagesFromGroup(@HeaderMap Map<String, String> header, @Query("roomId") String groupId, @Query("offset") long offset, @Query("count") long count);
+
+    @GET("/api/v1/channels.history")
+    Call<RocketChatMessageWrapperDto> getAllMessagesFromChannels(@HeaderMap Map<String, String> header, @Query("roomId") String channelId, @Query("offset") long offset, @Query("count") long count);
+
+    @GET("/api/v1/im.history")
+    Call<RocketChatMessageWrapperDto> getAllMessagesFromDirectMessages(@HeaderMap Map<String, String> header, @Query("roomId") String dmId, @Query("offset") long offset, @Query("count") long count);
 }

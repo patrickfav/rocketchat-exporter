@@ -1,0 +1,86 @@
+{
+  "channels": [
+    {
+      "_id": "3oCWXxEnXfeoPBXzN",
+      "name": "channelA",
+      "t": "c",
+      "msgs": 152,
+      "u": {
+        "_id": "yBXsFYq6yBp5eD92K",
+        "username": "b.mam"
+      },
+      "customFields": {},
+      "ts": "2017-08-02T16:44:51.412Z",
+      "ro": false,
+      "sysMes": true,
+      "_updatedAt": "2019-09-09T07:14:35.501Z",
+      "lm": "2019-06-19T09:30:26.064Z",
+      "topic": "A topic channel A",
+      "description": "The description",
+      "announcement": "",
+      "announcementDetails": null,
+      "usersCount": 29,
+      "lastMessage": {
+        "_id": "LPLGCJS9rqaRmaDov",
+        "rid": "3oCWXxEnXfeoPBXzN",
+        "msg": "a message",
+        "ts": "2019-06-19T09:30:26.064Z",
+        "u": {
+          "_id": "aP9RD3GDEykowoPWM",
+          "username": "b.mmm",
+          "name": "B MMM"
+        },
+        "mentions": [],
+        "channels": [],
+        "_updatedAt": "2019-06-19T09:30:26.076Z"
+      },
+      "fname": "channelA",
+      "retention": {
+        "enabled": false
+      }
+    },
+    {
+      "_id": "A3oCWXxEnXfeoPBXzN",
+      "name": "channelB",
+      "t": "c",
+      "msgs": 152,
+      "u": {
+        "_id": "AyBXsFYq6yBp5eD92K",
+        "username": "b.mam"
+      },
+      "customFields": {},
+      "ts": "2017-08-02T16:44:51.412Z",
+      "ro": false,
+      "sysMes": true,
+      "_updatedAt": "2019-09-09T07:14:35.501Z",
+      "lm": "2019-06-19T09:30:26.064Z",
+      "topic": "A topic channel B",
+      "description": "The description",
+      "announcement": "",
+      "announcementDetails": null,
+      "usersCount": 29,
+      "lastMessage": {
+        "_id": "ALPLGCJS9rqaRmaDov",
+        "rid": "A3oCWXxEnXfeoPBXzN",
+        "msg": "a message b",
+        "ts": "2019-06-19T09:30:26.064Z",
+        "u": {
+          "_id": "AaP9RD3GDEykowoPWM",
+          "username": "c.mmm",
+          "name": "C MMM"
+        },
+        "mentions": [],
+        "channels": [],
+        "_updatedAt": "2019-06-19T09:30:26.076Z"
+      },
+      "fname": "channelB",
+      "retention": {
+        "enabled": false
+      }
+    }
+  ],
+  "count": 2,
+  "offset": 0,
+  "total": 2,
+  "success": true
+}

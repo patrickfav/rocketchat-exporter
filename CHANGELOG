@@ -1,5 +1,11 @@
 # Releases
 
+## v1.1.0
+
+* add support for channel message export
+* add support for direct message export
+* add support for auto-generating file names
+
 ## v1.0.0
 
 * initial version

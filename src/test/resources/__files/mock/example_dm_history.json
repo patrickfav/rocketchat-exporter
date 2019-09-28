@@ -1,0 +1,35 @@
+{
+  "messages": [
+    {
+      "_id": "AJn3tYSiG37RuwXdvg",
+      "rid": "aBNcL5sTbbxabziRcPrjYKbX5shsBuWgYjG",
+      "msg": "A message 1",
+      "ts": "2019-07-22T10:00:16.455Z",
+      "u": {
+        "_id": "BNcDDsTbbxabziRcP",
+        "username": "a.ason",
+        "name": "A Ason"
+      },
+      "urls": [],
+      "mentions": [],
+      "channels": [],
+      "_updatedAt": "2019-07-22T10:00:16.523Z"
+    },
+    {
+      "_id": "ABn3tSiG37RuwXdvg",
+      "rid": "aBDcL5sTbbxabziRcPrjYKbX5shsBuWgYjG",
+      "msg": "A message 2",
+      "ts": "2019-07-23T10:00:16.455Z",
+      "u": {
+        "_id": "dBNcL5sTbbxabziRcP",
+        "username": "b.bson",
+        "name": "B Bson"
+      },
+      "urls": [],
+      "mentions": [],
+      "channels": [],
+      "_updatedAt": "2019-07-23T10:00:16.523Z"
+    }
+  ],
+  "success": true
+}

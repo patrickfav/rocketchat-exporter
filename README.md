@@ -1,6 +1,7 @@
 # Rocket Chat Exporter CLI
 
-A simple Java CLI tool to export the messages of a [Rocket Chat](https://rocket.chat/) group. Currently this only supports the **[Slack CSV](https://slack.com/intl/en-au/help/articles/201748703#) output format**, but adding new output format is quite easy (check out the `ExportFormat` interface).
+A simple Java CLI tool to export the messages from a [Rocket Chat](https://rocket.chat/) server. It currently supports _groups_, _channels_ and _direct message_ export.
+ As export format this tool only supports the **[Slack CSV](https://slack.com/intl/en-au/help/articles/201748703#) output format** as of now, but adding new output format is quite easy (check out the `ExportFormat` interface).
 
 This tool uses the [RocketChat API](https://rocket.chat/docs/developer-guides/rest-api/groups/) and is useful for situations where the user does not have administrative access to the server.
 
@@ -11,30 +12,40 @@ This tool uses the [RocketChat API](https://rocket.chat/docs/developer-guides/re
 
 Provide the tool with your host URL, output file and user name.
 
-    java -jar .\rocketchat-exporter.jar --host "http://my-rocket-chat.com" -o "./out.csv" -u "user@mail.com"
+    java -jar .\rocketchat-exporter.jar --host "http://my-rocket-chat.com" -o "./out" -u "fname.lastname@mail.com"
 
 After that the password will be prompted. The tool will print all available channels. 
 Choose one and the resulting export will be written to the provided file. Example output:
 
 ```
-Authentication successful (Zuhdh76&gd).
+Please enter your RocketChat password: ************
+Authentication successful (fname.lastname).
 
-Please choose to channel you want to export:
-        (1) group-a
-        (2) group-b
-        (3) group-c
+What type do you want to export:
+	(1) group
+	(2) channel
+	(3) direct message
+Select option (1-3):
+2
+
+Please choose the channel you want to export:
+	(1) channel a
+	(2) channel b
+	(3) channel c
 Select option (1-3):
 3
-Successfully exported 48 messages to '.\out.csv'
+Successfully exported 122 channel messages to 'out\channel_channel-c_20190927013945.csv'
 ```
 
 ### Manpage
 
-    Usage: [-hV] [--debug] -o=<file> -t=<host> -u=<username>
+    Usage: export [-hV] [--debug] [-o=<file>] -t=<host> -u=<username>
     Exports rocket chat messages from a specific group/channel.
           --debug             Add debug log output to STDOUT.
       -h, --help              Show this help message and exit.
-      -o, --outFile=<file>    The file to write the export to
+      -o, --outFile=<file>    The file or directory to write the export data to.
+                                Will write to current directory with auto generated
+                                filename if this arg is omitted.
       -t, --host=<host>       The rocket chat server. E.g. 'https://myserver.com'
       -u, --user=<username>   RocketChat username for authentication.
       -V, --version           Print version information and exit.

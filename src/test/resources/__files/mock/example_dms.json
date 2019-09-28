@@ -1,0 +1,62 @@
+{
+  "ims": [
+    {
+      "_id": "BNcL5sTbbxabziRcPHgyY5MhhLwco6butb",
+      "usernames": [
+        "a.ason",
+        "b.bson"
+      ],
+      "_updatedAt": "2019-09-24T14:08:13.898Z",
+      "t": "d",
+      "msgs": 1102,
+      "ts": "2017-06-21T10:08:04.037Z",
+      "lm": "2019-09-24T10:29:13.787Z",
+      "usersCount": 2,
+      "lastMessage": {
+        "_id": "721bee3d-5baa-444c-9e31-699a47d8a223",
+        "rid": "BNcL5sTbbxabziRcPHgyY5MhhLwco6butb",
+        "msg": "Awesome",
+        "ts": "2019-09-24T10:29:13.787Z",
+        "u": {
+          "_id": "BNcL5sTbbxabziRcP",
+          "username": "a.ason",
+          "name": "a.ason"
+        },
+        "mentions": [],
+        "channels": [],
+        "_updatedAt": "2019-09-24T10:29:13.803Z"
+      }
+    },
+    {
+      "_id": "aBNcL5sTbbxabziRcPHgyY5MhhLwco6butb",
+      "usernames": [
+        "a.ason",
+        "c.cson"
+      ],
+      "_updatedAt": "2019-09-24T14:08:13.898Z",
+      "t": "d",
+      "msgs": 25,
+      "ts": "2017-06-21T10:08:04.037Z",
+      "lm": "2019-09-24T10:29:13.787Z",
+      "usersCount": 2,
+      "lastMessage": {
+        "_id": "A721bee3d-5baa-444c-9e31-699a47d8a223",
+        "rid": "ABNcL5sTbbxabziRcPHgyY5MhhLwco6butb",
+        "msg": "Awesome",
+        "ts": "2019-09-24T10:29:13.787Z",
+        "u": {
+          "_id": "ABNcL5sTbbxabziRcP",
+          "username": "a.ason",
+          "name": "a.ason"
+        },
+        "mentions": [],
+        "channels": [],
+        "_updatedAt": "2019-09-24T10:29:13.803Z"
+      }
+    }
+  ],
+  "offset": 0,
+  "count": 2,
+  "total": 2,
+  "success": true
+}

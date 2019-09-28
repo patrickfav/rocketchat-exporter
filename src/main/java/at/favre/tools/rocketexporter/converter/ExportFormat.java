@@ -13,4 +13,11 @@ public interface ExportFormat {
      * @param outputStream to write to
      */
     void export(List<Message> messages, OutputStream outputStream);
+
+    /**
+     * Type of file extension, e.g. 'csv' or 'json'
+     *
+     * @return extension
+     */
+    String fileExtension();
 }
