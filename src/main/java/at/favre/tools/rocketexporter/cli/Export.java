@@ -36,6 +36,9 @@ class Export implements Runnable {
     @CommandLine.Option(names = {"--debug"}, description = "Add debug log output to STDOUT.")
     private boolean debug;
 
+    @CommandLine.Option(names = {"-m", "--maxMsg"}, description = "How many messages should be exported.")
+    private int maxMessages = 25000;
+
     public static void main(String[] args) {
         int exitCode = new CommandLine(new Export())
                 .setCaseInsensitiveEnumValuesAllowed(true).execute(args);
@@ -124,7 +127,7 @@ class Export implements Runnable {
                 final List<Message> messages;
                 final ExportFormat format = new SlackCsvFormat();
                 final int offset = 0;
-                final int maxMsg = 25000;
+                final int maxMsg = maxMessages;
                 final File outFile = generateOutputFile(file, selectedGroup.getName(), type, format);
 
                 try {
