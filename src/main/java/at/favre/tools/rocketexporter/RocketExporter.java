@@ -69,10 +69,11 @@ public interface RocketExporter {
      * @param exportFormat    selected output format
      * @return exported messages
      * @throws IOException on issues during the REST call
+     * @throws TooManyRequestException if the server responds with 429, you need to throttle the requests
      */
     List<Message> exportPrivateGroupMessages(String roomName, String roomId,
                                              int offset, int maxMessageCount,
-                                             File out, ExportFormat exportFormat) throws IOException;
+                                             File out, ExportFormat exportFormat) throws IOException, TooManyRequestException;
 
     /**
      * Export messages from a channel.
@@ -85,10 +86,11 @@ public interface RocketExporter {
      * @param exportFormat    selected output format
      * @return exported messages
      * @throws IOException on issues during the REST call
+     * @throws TooManyRequestException if the server responds with 429, you need to throttle the requests
      */
     List<Message> exportChannelMessages(String channelName, String channelId,
                                         int offset, int maxMessageCount,
-                                        File out, ExportFormat exportFormat) throws IOException;
+                                        File out, ExportFormat exportFormat) throws IOException, TooManyRequestException;
 
     /**
      * Export messages from a direct message conversation.
@@ -101,10 +103,11 @@ public interface RocketExporter {
      * @param exportFormat    selected output format
      * @return exported messages
      * @throws IOException on issues during the REST call
+     * @throws TooManyRequestException if the server responds with 429, you need to throttle the requests
      */
     List<Message> exportDirectMessages(String dmName, String dmId,
                                        int offset, int maxMessageCount,
-                                       File out, ExportFormat exportFormat) throws IOException;
+                                       File out, ExportFormat exportFormat) throws IOException, TooManyRequestException;
 
     /**
      * Creates a new instance of exporter
@@ -213,27 +216,27 @@ public interface RocketExporter {
         @Override
         public List<Message> exportPrivateGroupMessages(String roomName, String roomId,
                                                         int offset, int maxMessageCount,
-                                                        File out, ExportFormat exportFormat) throws IOException {
+                                                        File out, ExportFormat exportFormat) throws IOException, TooManyRequestException {
             return exportMessages(roomName, roomId, offset, maxMessageCount, ConversationType.GROUP, out, exportFormat);
         }
 
         @Override
         public List<Message> exportChannelMessages(String channelName, String channelId,
                                                    int offset, int maxMessageCount,
-                                                   File out, ExportFormat exportFormat) throws IOException {
+                                                   File out, ExportFormat exportFormat) throws IOException, TooManyRequestException {
             return exportMessages(channelName, channelId, offset, maxMessageCount, ConversationType.CHANNEL, out, exportFormat);
         }
 
         @Override
         public List<Message> exportDirectMessages(String dmName, String dmId,
                                                   int offset, int maxMessageCount,
-                                                  File out, ExportFormat exportFormat) throws IOException {
+                                                  File out, ExportFormat exportFormat) throws IOException, TooManyRequestException {
             return exportMessages(dmName, dmId, offset, maxMessageCount, ConversationType.DIRECT_MESSAGES, out, exportFormat);
         }
 
         private List<Message> exportMessages(String contextName, String id,
                                              int offset, int maxMessageCount,
-                                             ConversationType conversationType, File out, ExportFormat exportFormat) throws IOException {
+                                             ConversationType conversationType, File out, ExportFormat exportFormat) throws IOException, TooManyRequestException {
             checkAuthenticated();
 
 
@@ -267,6 +270,8 @@ public interface RocketExporter {
                                     timestamp
                             ));
                 }
+            } else if (response.code() == 429) {
+                throw new TooManyRequestException(response.body());
             } else {
                 throw new IllegalStateException("error response: " + response.code());
             }

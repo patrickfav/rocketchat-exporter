@@ -5,6 +5,7 @@
 * add support for channel message export
 * add support for direct message export
 * add support for auto-generating file names
+* add feature to export all conversation at once
 
 ## v1.0.0
 

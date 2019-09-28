@@ -2,6 +2,7 @@ package at.favre.tools.rocketexporter.cli;
 
 import at.favre.tools.rocketexporter.Config;
 import at.favre.tools.rocketexporter.RocketExporter;
+import at.favre.tools.rocketexporter.TooManyRequestException;
 import at.favre.tools.rocketexporter.converter.ExportFormat;
 import at.favre.tools.rocketexporter.converter.SlackCsvFormat;
 import at.favre.tools.rocketexporter.dto.Conversation;
@@ -23,7 +24,7 @@ import java.util.stream.Collectors;
         name = "export", mixinStandardHelpOptions = true, version = "1.0")
 class Export implements Runnable {
 
-    @CommandLine.Option(names = {"-o", "--outFile"}, description = "The file or directory to write the export data to. Will write to current directory with auto generated filename if this arg is omitted.")
+    @CommandLine.Option(names = {"-o", "--outFile"}, description = "The file or directory to write the export data to. Will write to current directory with auto generated filename if this arg is omitted. If you want to export multiple conversations you must pass a directory not a file.")
     private File file;
 
     @CommandLine.Option(names = {"-t", "--host"}, required = true, description = "The rocket chat server. E.g. 'https://myserver.com'")
@@ -90,10 +91,15 @@ class Export implements Runnable {
                     throw new IllegalStateException();
             }
 
+            List<Conversation> conversationSelection = new ArrayList<>();
+            conversationSelection.add(new Conversation.AllConversations());
+
             List<Conversation> allConversations = conversations.stream()
                     .filter(Objects::nonNull)
                     .sorted(Comparator.comparing(Conversation::getName))
                     .collect(Collectors.toList());
+
+            conversationSelection.addAll(allConversations);
 
             if (allConversations.size() == 0) {
                 out.println("Nothing found to export.");
@@ -102,32 +108,46 @@ class Export implements Runnable {
 
             CliOptionChooser cliOptionChooser =
                     new CliOptionChooser(System.in, out,
-                            allConversations.stream().map(Conversation::getName).collect(Collectors.toList()),
+                            conversationSelection.stream().map(Conversation::getName).collect(Collectors.toList()),
                             "\nPlease choose the " + type.name + " you want to export:");
 
-            Conversation selectedGroup = allConversations.get(cliOptionChooser.prompt());
+            int selection = cliOptionChooser.prompt();
+            List<Conversation> toExport = new ArrayList<>();
 
-            final List<Message> messages;
-            final ExportFormat format = new SlackCsvFormat();
-            final int offset = 0;
-            final int maxMsg = 25000;
-            final File outFile = generateOutputFile(file, selectedGroup.getName(), type, format);
-
-            switch (type) {
-                case GROUP:
-                    messages = exporter.exportPrivateGroupMessages(selectedGroup.getName(), selectedGroup.get_id(), offset, maxMsg, outFile, format);
-                    break;
-                case CHANNEL:
-                    messages = exporter.exportChannelMessages(selectedGroup.getName(), selectedGroup.get_id(), offset, maxMsg, outFile, format);
-                    break;
-                case DIRECT_MESSAGES:
-                    messages = exporter.exportDirectMessages(selectedGroup.getName(), selectedGroup.get_id(), offset, maxMsg, outFile, format);
-                    break;
-                default:
-                    throw new IllegalStateException();
+            if (selection == 0) {
+                toExport.addAll(allConversations);
+            } else {
+                toExport.add(allConversations.get(selection));
             }
 
-            out.println("Successfully exported " + messages.size() + " " + type.name + " messages to '" + outFile + "'");
+            for (Conversation selectedGroup : toExport) {
+                final List<Message> messages;
+                final ExportFormat format = new SlackCsvFormat();
+                final int offset = 0;
+                final int maxMsg = 25000;
+                final File outFile = generateOutputFile(file, selectedGroup.getName(), type, format);
+
+                try {
+                    switch (type) {
+                        case GROUP:
+                            messages = exporter.exportPrivateGroupMessages(selectedGroup.getName(), selectedGroup.get_id(), offset, maxMsg, outFile, format);
+                            break;
+                        case CHANNEL:
+                            messages = exporter.exportChannelMessages(selectedGroup.getName(), selectedGroup.get_id(), offset, maxMsg, outFile, format);
+                            break;
+                        case DIRECT_MESSAGES:
+                            messages = exporter.exportDirectMessages(selectedGroup.getName(), selectedGroup.get_id(), offset, maxMsg, outFile, format);
+                            break;
+                        default:
+                            throw new IllegalStateException();
+                    }
+
+                    out.println("Successfully exported " + messages.size() + " " + type.name + " messages to '" + outFile + "'");
+                } catch (TooManyRequestException e) {
+                    out.println("Too many requests. Slowing down...");
+                    Thread.sleep(5000);
+                }
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

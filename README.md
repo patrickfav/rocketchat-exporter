@@ -1,7 +1,6 @@
 # Rocket Chat Exporter CLI
 
-A simple Java CLI tool to export the messages from a [Rocket Chat](https://rocket.chat/) server. It currently supports _groups_, _channels_ and _direct message_ export.
- As export format this tool only supports the **[Slack CSV](https://slack.com/intl/en-au/help/articles/201748703#) output format** as of now, but adding new output format is quite easy (check out the `ExportFormat` interface).
+A simple Java CLI tool to export the messages from a [Rocket Chat](https://rocket.chat/) server. It currently supports _groups_, _channels_ and _direct message_ export. You can either choose a single conversation or export all in a batch. As export format this tool only supports the **[Slack CSV](https://slack.com/intl/en-au/help/articles/201748703#) output format** as of now, but adding new output format is quite easy (check out the `ExportFormat` interface).
 
 This tool uses the [RocketChat API](https://rocket.chat/docs/developer-guides/rest-api/groups/) and is useful for situations where the user does not have administrative access to the server.
 
@@ -29,12 +28,13 @@ Select option (1-3):
 2
 
 Please choose the channel you want to export:
-	(1) channel a
-	(2) channel b
-	(3) channel c
-Select option (1-3):
+	(1) [ALL]
+	(2) channel a
+	(3) channel b
+	(4) channel c
+Select option (1-4):
 3
-Successfully exported 122 channel messages to 'out\channel_channel-c_20190927013945.csv'
+Successfully exported 122 channel messages to 'out\channel_channel-b_20190927013945.csv'
 ```
 
 ### Manpage
@@ -45,7 +45,9 @@ Successfully exported 122 channel messages to 'out\channel_channel-c_20190927013
       -h, --help              Show this help message and exit.
       -o, --outFile=<file>    The file or directory to write the export data to.
                                 Will write to current directory with auto generated
-                                filename if this arg is omitted.
+                                filename if this arg is omitted. If you want to
+                                export multiple conversations you must pass a
+                                directory not a file.
       -t, --host=<host>       The rocket chat server. E.g. 'https://myserver.com'
       -u, --user=<username>   RocketChat username for authentication.
       -V, --version           Print version information and exit.
