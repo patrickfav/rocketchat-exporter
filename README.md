@@ -39,10 +39,13 @@ Successfully exported 122 channel messages to 'out\channel_channel-b_20190927013
 
 ### Manpage
 
-    Usage: export [-hV] [--debug] [-o=<file>] -t=<host> -u=<username>
+    Usage: export [-hV] [--debug] [-m=<maxMessages>] [-o=<file>] -t=<host>
+                  -u=<username>
     Exports rocket chat messages from a specific group/channel.
           --debug             Add debug log output to STDOUT.
       -h, --help              Show this help message and exit.
+      -m, --maxMsg=<maxMessages>
+                              How many messages should be exported.
       -o, --outFile=<file>    The file or directory to write the export data to.
                                 Will write to current directory with auto generated
                                 filename if this arg is omitted. If you want to
