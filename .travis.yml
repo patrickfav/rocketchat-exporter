@@ -2,7 +2,7 @@
 #    git update-index --chmod=+x mvnw
 
 language: java
-install: true
+install: false
 jdk:
   - openjdk11
 
