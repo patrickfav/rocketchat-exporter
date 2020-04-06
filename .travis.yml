@@ -20,7 +20,7 @@ deploy:
       - "target/rocketchat-exporter-*.jar"
       - "target/*.sha256"
       - "target/checksum-sha256.txt"
-    cleanup: true
+    cleanup: false
     on:
       branch: master
       tags: true
