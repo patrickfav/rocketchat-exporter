@@ -13,7 +13,7 @@ after_success:
 
 deploy:
   - provider: releases
-    token:
+    api_key:
       secure: "M32tO++Lpt12pwdujRuYqcm7d6O9zIOeRZSz1F4Ps/c5lcryQdtV6USNfOFY3xYDU5Lg01Wwn2yTUAZGLG0Crb/+BfKtF+s39mIh54uUMwE1eDs8X7VsmAec3EX3iqTHPZha/LrcooAY/DT2p40SYbOkfkIQRIFJReO89nD7mDnge/upzfPHW8FeL/yddg0zKXRXpCyNKURhBg/hnfYhamOMOzc5u0bYhGWKRKBg88//eFnMqT4VwMEWQPXHDJ+dLEWn6sLFnzZaOJBlSsdwKoudJ+mTyxmZQWK0ArDR7uoxrJb3ypZb13EBVSCLoA07gkMBfbf7HueSMwBJgWbq44pTUav5lm2p/WmdA3yHHGKYN+/VnlAh9iiAyw+aJibWXtI+dCxvxm6Vt6pnMJ372vRyhKipiNZDUe9h7o+pM7VZO44WZdXQIM6Yn6zhkZASxAiJtqpsdwlWtiGu01BMnraKVXEG0BeEF63EaRMiS+4tAanI1UV+IIrupTdmCOjJqXlkjPK555qEipbqIgnS/E0aGn6ajZIVSThqQipigJfUeUMIHLeAjzEEJ+NP1sB1f6lZ9CoVu8gqySw+hY0SZir9Fw1drMYSbnVDkVJQKEbiJhauSj4utK1TStWJNRG6Vb5POkVnnp/xa1W4EkgFGtu+MVIiF6wrqf23JP1xpCw="
     file_glob: true
     file:
