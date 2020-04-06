@@ -63,6 +63,20 @@ Successfully exported 122 channel messages to 'out\channel_channel-b_20190927013
 
 **[Grab jar from latest Release](https://github.com/patrickfav/rocketchat-exporter/releases/latest)**
 
+## Development
+
+### Build with Maven
+
+Use the Maven wrapper to create a jar including all dependencies
+
+    mvnw clean install
+
+### Checkstyle Config File
+
+This project uses my [`common-parent`](https://github.com/patrickfav/mvn-common-parent) which centralized a lot of
+the plugin versions aswell as providing the checkstyle config rules. Specifically they are maintained in [`checkstyle-config`](https://github.com/patrickfav/checkstyle-config). Locally the files will be copied after you `mvnw install` into your `target` folder and is called
+`target/checkstyle-checker.xml`. So if you use a plugin for your IDE, use this file as your local configuration.
+
 # License
 
 Copyright 2019 Patrick Favre-Bulle
