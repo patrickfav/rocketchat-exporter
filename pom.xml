@@ -168,6 +168,6 @@
 
     <ciManagement>
         <system>Travis</system>
-        <url>https://travis-ci.org/patrickfav/rocketchat-exporter</url>
+        <url>https://travis-ci.com/patrickfav/rocketchat-exporter</url>
     </ciManagement>
 </project>
