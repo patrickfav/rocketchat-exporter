@@ -53,10 +53,27 @@
         "channels": [],
         "_updatedAt": "2019-09-24T10:29:13.803Z"
       }
+    },
+    {
+      "_id": "gtJdgvcKxTtWN4Q9wgwJdmvcKxTtWN4Q9w",
+      "usernames": [
+        "a.ason",
+        "a.ason"
+      ],
+      "_updatedAt": "2019-07-04T13:11:57.603Z",
+      "t": "d",
+      "msgs": 2,
+      "ts": "2019-07-04T13:11:54.739Z",
+      "lm": "2019-07-04T13:11:57.545Z",
+      "usersCount": 1,
+      "uids": [
+        "gtJdgvcKxTtWN4Q9w",
+        "gtJdgvcKxTtWN4Q9w"
+      ]
     }
   ],
   "offset": 0,
-  "count": 2,
-  "total": 2,
+  "count": 3,
+  "total": 3,
   "success": true
 }

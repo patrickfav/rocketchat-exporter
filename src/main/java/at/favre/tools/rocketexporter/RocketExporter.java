@@ -206,7 +206,10 @@ public interface RocketExporter {
             if (channel != null) {
                 return channel.getIms()
                         .stream()
-                        .peek(dm -> dm.setGeneratedName(dm.getUsernames().stream().filter(u -> !u.equals(userName)).findFirst().get()))
+                        .peek(dm -> dm.setGeneratedName(dm.getUsernames().stream()
+                            .filter(u -> !u.equals(userName))
+                            .findFirst()
+                            .orElse(userName))) // Fallback to the user's name if we have filtered out all names (conversations with themselves)
                         .collect(Collectors.toList());
             } else {
                 return Collections.emptyList();
