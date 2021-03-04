@@ -108,7 +108,7 @@ public class RocketExporterTest {
         login();
         List<RocketChatDm.DirectMessage> dm = exporter.listDirectMessageChannels();
         assertNotNull(dm);
-        assertEquals(2, dm.size());
+        assertEquals(3, dm.size());
     }
 
 
