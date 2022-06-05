@@ -32,6 +32,15 @@ public interface RocketExporter {
     LoginResponseDto login(LoginDto login) throws IOException;
 
     /**
+     * Use the Personal Access Token for all communications
+     *
+     * @param token PAT user ID and token
+     * @return response
+     * @throws IOException on issues during the REST call
+     */
+    LoginResponseDto tokenAuth(TokenDto token) throws IOException;
+
+    /**
      * Get all accessible groups.
      * Requires login first.
      *
@@ -171,6 +180,23 @@ public interface RocketExporter {
                 authHeaders = Map.of(
                         "X-User-Id", loginResponseBody.getData().getUserId(),
                         "X-Auth-Token", loginResponseBody.getData().getAuthToken());
+                return loginResponseBody;
+            } else {
+                throw new IllegalStateException("error response: " + loginResponse.code());
+            }
+        }
+
+        public LoginResponseDto tokenAuth(TokenDto token) throws IOException {
+            authHeaders = Map.of(
+                    "X-User-Id", token.getUserId(),
+                    "X-Auth-Token", token.getToken());
+
+            Response<LoginResponseDto> loginResponse = getService().tokenAuth(authHeaders).execute();
+            LoginResponseDto loginResponseBody;
+
+            if (loginResponse.code() == 401 || loginResponse.code() == 403) {
+                throw new IllegalArgumentException("invalid credentials");
+            } else if (loginResponse.code() == 200 && (loginResponseBody = loginResponse.body()) != null) {
                 return loginResponseBody;
             } else {
                 throw new IllegalStateException("error response: " + loginResponse.code());

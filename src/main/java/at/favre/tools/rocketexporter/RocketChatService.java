@@ -26,6 +26,9 @@ public interface RocketChatService {
     @POST("/api/v1/login")
     Call<LoginResponseDto> login(@Body LoginDto request);
 
+    @GET("/api/v1/me")
+    Call<LoginResponseDto> tokenAuth(@HeaderMap Map<String, String> headers);
+
     @GET("/api/v1/groups.list?count=0&offset=0")
     Call<RocketChatGroups> getAllGroups(@HeaderMap Map<String, String> header);
 

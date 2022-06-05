@@ -8,6 +8,7 @@ import at.favre.tools.rocketexporter.converter.SlackCsvFormat;
 import at.favre.tools.rocketexporter.dto.Conversation;
 import at.favre.tools.rocketexporter.dto.LoginDto;
 import at.favre.tools.rocketexporter.dto.LoginResponseDto;
+import at.favre.tools.rocketexporter.dto.TokenDto;
 import at.favre.tools.rocketexporter.model.Message;
 import picocli.CommandLine;
 
@@ -30,8 +31,11 @@ class Export implements Runnable {
     @CommandLine.Option(names = {"-t", "--host"}, required = true, description = "The rocket chat server. E.g. 'https://myserver.com'")
     private URL host;
 
-    @CommandLine.Option(names = {"-u", "--user"}, required = true, description = "RocketChat username for authentication.")
+    @CommandLine.Option(names = {"-u", "--user"}, required = false, description = "RocketChat username for authentication.")
     private String username;
+
+    @CommandLine.Option(names = {"-k", "--user-id"}, required = true, description = "RocketChat Personal Access Token user ID.")
+    private String userId;
 
     @CommandLine.Option(names = {"--debug"}, description = "Add debug log output to STDOUT.")
     private boolean debug;
@@ -49,7 +53,12 @@ class Export implements Runnable {
     public void run() {
         PrintStream out = System.out;
 
-        out.println("Please enter your RocketChat password:");
+        if (username == null && userId == null) {
+            out.println("You have to use a username or a token user ID to continue.");
+            System.exit(-1);
+        }
+
+        out.println("Please enter your RocketChat password or token:");
 
         String password;
         if (System.console() != null) {
@@ -65,9 +74,14 @@ class Export implements Runnable {
                             .httpDebugOutput(debug)
                             .build());
 
-            LoginResponseDto loginResponse = exporter.login(new LoginDto(username, password));
+            LoginResponseDto loginResponse;
+            if (username != null && !username.isEmpty()) {
+                loginResponse = exporter.login(new LoginDto(username, password));
+            } else {
+                loginResponse = exporter.tokenAuth(new TokenDto(userId, password));
+            }
 
-            out.println("Authentication successful (" + loginResponse.getData().getMe().getUsername() + ").");
+            out.println("Authentication successful (" + username + " or " + userId + ").");
 
             CliOptionChooser typeChooser =
                     new CliOptionChooser(System.in, out,
