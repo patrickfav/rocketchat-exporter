@@ -23,7 +23,7 @@
     <inceptionYear>2019</inceptionYear>
 
     <properties>
-        <retrofitVersion>2.6.1</retrofitVersion>
+        <retrofitVersion>2.9.0</retrofitVersion>
         <okhttp>3.14.3</okhttp>
         <!-- SonarQube Config -->
         <sonar.organization>patrickfav</sonar.organization>
