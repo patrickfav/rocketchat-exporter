@@ -4,12 +4,14 @@ A simple Java CLI tool to export the messages from a [Rocket Chat](https://rocke
 
 This tool uses the [RocketChat API](https://rocket.chat/docs/developer-guides/rest-api/groups/) and is useful for situations where the user does not have administrative access to the server.
 
-[![GitHub release](https://img.shields.io/github/release/patrickfav/rocketchat-exporter.svg)](https://github.com/patrickfav/rocketchat-exporter/releases/latest) [![Build Status](https://travis-ci.com/patrickfav/rocketchat-exporter.svg?branch=master)](https://travis-ci.com/patrickfav/rocketchat-exporter) [![Coverage Status](https://coveralls.io/repos/github/patrickfav/rocketchat-exporter/badge.svg?branch=master)](https://coveralls.io/github/patrickfav/rocketchat-exporter?branch=master)
-
+[![GitHub release](https://img.shields.io/github/release/patrickfav/rocketchat-exporter.svg)](https://github.com/patrickfav/rocketchat-exporter/releases/latest)
+[![Build Status](https://travis-ci.com/patrickfav/rocketchat-exporter.svg?branch=master)](https://travis-ci.com/patrickfav/rocketchat-exporter)
+[![Github Actions](https://github.com/patrickfav/rocketchat-exporter/actions/workflows/build.yml/badge.svg)](https://github.com/patrickfav/rocketchat-exporter/actions)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=patrickfav_rocketchat-exporter&metric=coverage)](https://sonarcloud.io/summary/new_code?id=patrickfav_rocketchat-exporter)
 
 ## Quickstart
 
-Provide the tool with your host URL, output file and user name.
+Provide the tool with your host URL, output file and username.
 
     java -jar .\rocketchat-exporter.jar --host "http://my-rocket-chat.com" -o "./out" -u "fname.lastname@mail.com"
 
@@ -61,7 +63,7 @@ Successfully exported 122 channel messages to 'out\channel_channel-b_20190927013
 
 ## Download
 
-**[Grab jar from latest Release](https://github.com/patrickfav/rocketchat-exporter/releases/latest)**
+**[Grab jar from the latest Release](https://github.com/patrickfav/rocketchat-exporter/releases/latest)**
 
 ## Development
 

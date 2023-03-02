@@ -7,7 +7,7 @@
     <parent>
         <groupId>at.favre.lib</groupId>
         <artifactId>common-parent</artifactId>
-        <version>12</version>
+        <version>19</version>
     </parent>
 
     <groupId>at.favre.tools</groupId>
@@ -25,18 +25,16 @@
     <properties>
         <retrofitVersion>2.6.1</retrofitVersion>
         <okhttp>3.14.3</okhttp>
+        <!-- SonarQube Config -->
+        <sonar.organization>patrickfav</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+        <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+        <sonar.language>java</sonar.language>
+        <!-- Code Cov -->
+        <commonConfig.jacoco.check.linecov>0.4</commonConfig.jacoco.check.linecov>
+        <commonConfig.jacoco.check.methodcov>0.2</commonConfig.jacoco.check.methodcov>
     </properties>
-
-    <repositories>
-        <repository>
-            <id>jcenter</id>
-            <name>jcenter</name>
-            <url>https://jcenter.bintray.com</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
 
     <build>
         <plugins>
@@ -55,19 +53,6 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.eluder.coveralls</groupId>
-                <artifactId>coveralls-maven-plugin</artifactId>
-                <version>4.3.0</version>
-                <!-- plugin is not ready for java 9+ https://github.com/trautonen/coveralls-maven-plugin/issues/112 -->
-                <dependencies>
-                    <dependency>
-                        <groupId>javax.xml.bind</groupId>
-                        <artifactId>jaxb-api</artifactId>
-                        <version>2.2.3</version>
-                    </dependency>
-                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -155,9 +140,8 @@
     </dependencies>
 
     <scm>
-        <connection>https://github.com/patrickfav/rocketchat-exporter.git</connection>
-        <developerConnection>https://github.com/patrickfav/rocketchat-exporter.git</developerConnection>
-        <tag>HEAD</tag>
+        <connection>scm:git:https://github.com/patrickfav/rocketchat-exporter.git</connection>
+        <developerConnection>scm:git:https://github.com/patrickfav/rocketchat-exporter.git</developerConnection>
         <url>https://github.com/patrickfav/rocketchat-exporter</url>
     </scm>
 
@@ -167,7 +151,7 @@
     </issueManagement>
 
     <ciManagement>
-        <system>Travis</system>
-        <url>https://travis-ci.com/patrickfav/rocketchat-exporter</url>
+        <system>GitHub Actions</system>
+        <url>https://github.com/patrickfav/rocketchat-exporter/actions</url>
     </ciManagement>
 </project>
