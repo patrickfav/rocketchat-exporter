@@ -12,7 +12,7 @@
 
     <groupId>at.favre.tools</groupId>
     <artifactId>rocketchat-exporter</artifactId>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
     <packaging>jar</packaging>
 
     <name>Rocket Chat to Slack Exporter</name>
