@@ -1,5 +1,10 @@
 # Releases
 
+### v1.1.1
+
+* update various dependencies
+* migrate to github actions & sonarqube
+
 ## v1.1.0
 
 * add support for channel message export
