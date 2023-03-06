@@ -24,7 +24,7 @@
 
     <properties>
         <retrofitVersion>2.9.0</retrofitVersion>
-        <okhttp>3.14.3</okhttp>
+        <okhttp>4.10.0</okhttp>
         <!-- SonarQube Config -->
         <sonar.organization>patrickfav</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
