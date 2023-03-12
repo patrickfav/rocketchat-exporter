@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Response list of direct message channels accessible to a user.
  * <p>
- * See: https://rocket.chat/docs/developer-guides/rest-api/im/list/
+ * See: <a href="https://rocket.chat/docs/developer-guides/rest-api/im/list/">list</a>
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

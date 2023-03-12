@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * Personal Access Token data.
  * <p>
- * See: https://developer.rocket.chat/api/rest-api/personal-access-tokens
+ * See: <a href="https://developer.rocket.chat/api/rest-api/personal-access-tokens">personal-access-tokens</a>
  */
 @Data
 @AllArgsConstructor

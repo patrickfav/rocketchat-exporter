@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * Response of the login request.
  * <p>
- * See: https://rocket.chat/docs/developer-guides/rest-api/authentication/login/
+ * See: <a href="https://rocket.chat/docs/developer-guides/rest-api/authentication/login/">login</a>
  */
 
 @Data

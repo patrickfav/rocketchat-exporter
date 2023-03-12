@@ -19,7 +19,7 @@
     <description>A simple exporter using the rocket chat public REST APIs to export chats and converts it to a slack
         format
     </description>
-    <url>https://github.com/patrickfav/rocketchat-exporter</url>
+    <url>https://favr.dev/opensource/rocketchat-exporter</url>
     <inceptionYear>2019</inceptionYear>
 
     <properties>

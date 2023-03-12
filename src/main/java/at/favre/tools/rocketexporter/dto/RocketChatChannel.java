@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Response list of channel accessible to a user.
  * <p>
- * See: https://rocket.chat/docs/developer-guides/rest-api/channels/list/
+ * See: <a href="https://rocket.chat/docs/developer-guides/rest-api/channels/list/">list</a>
  * <p>
  */
 @Data

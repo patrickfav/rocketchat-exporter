@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Rocket Chat Message DTO
  * <p>
- * See: https://rocket.chat/docs/developer-guides/rest-api/groups/messages/
+ * See: <a href="https://rocket.chat/docs/developer-guides/rest-api/groups/messages/">messages</a>
  * <p>
  * Example:
  *

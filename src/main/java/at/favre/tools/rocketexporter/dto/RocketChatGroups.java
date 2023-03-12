@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Response list of groups accessible to a user.
  * <p>
- * See: https://rocket.chat/docs/developer-guides/rest-api/groups/list/
+ * See: <a href="https://rocket.chat/docs/developer-guides/rest-api/groups/list/">list</a>
  * <p>
  * Example:
  * <pre>
