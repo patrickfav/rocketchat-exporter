@@ -2,7 +2,7 @@
 
 A simple Java CLI tool to export the messages from a [Rocket Chat](https://rocket.chat/) server. It currently supports _groups_, _channels_ and _direct message_ export. You can either choose a single conversation or export all in a batch. As export format this tool only supports the **[Slack CSV](https://slack.com/intl/en-au/help/articles/201748703#) output format** as of now, but adding new output format is quite easy (check out the `ExportFormat` interface).
 
-This tool uses the [RocketChat API](https://rocket.chat/docs/developer-guides/rest-api/groups/) and is useful for situations where the user does not have administrative access to the server.
+This tool uses the [RocketChat API](https://developer.rocket.chat/reference/api/rest-api/endpoints/core-endpoints/groups-endpoints) and is useful for situations where the user does not have administrative access to the server.
 
 [![GitHub release](https://img.shields.io/github/release/patrickfav/rocketchat-exporter.svg)](https://github.com/patrickfav/rocketchat-exporter/releases/latest)
 [![Build Status](https://travis-ci.com/patrickfav/rocketchat-exporter.svg?branch=master)](https://travis-ci.com/patrickfav/rocketchat-exporter)
