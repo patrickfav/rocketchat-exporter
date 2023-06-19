@@ -19,13 +19,15 @@ public class SlackCsvFormatTest {
         exportFormat.export(
                 List.of(
                         new Message("m1", "u1", "c1", EPOCH),
-                        new Message("m2", "u2", "c3", EPOCH.plusSeconds(1))
+                        new Message("m2", "u2", "c3", EPOCH.plusSeconds(1)),
+                        new Message(null, "u3", "c3", EPOCH)
                 ),
                 bout);
 
         String out = bout.toString();
 
         assertEquals("\"0\",\"c1\",\"u1\",\"m1\"\n" +
-                "\"1\",\"c3\",\"u2\",\"m2\"\n", out);
+                "\"1\",\"c3\",\"u2\",\"m2\"\n" +
+                "\"0\",\"c3\",\"u3\",\"\"\n", out);
     }
 }
