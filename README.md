@@ -5,7 +5,6 @@ A simple Java CLI tool to export the messages from a [Rocket Chat](https://rocke
 This tool uses the [RocketChat API](https://developer.rocket.chat/reference/api/rest-api/endpoints/core-endpoints/groups-endpoints) and is useful for situations where the user does not have administrative access to the server.
 
 [![GitHub release](https://img.shields.io/github/release/patrickfav/rocketchat-exporter.svg)](https://github.com/patrickfav/rocketchat-exporter/releases/latest)
-[![Build Status](https://travis-ci.com/patrickfav/rocketchat-exporter.svg?branch=master)](https://travis-ci.com/patrickfav/rocketchat-exporter)
 [![Github Actions](https://github.com/patrickfav/rocketchat-exporter/actions/workflows/build.yml/badge.svg)](https://github.com/patrickfav/rocketchat-exporter/actions)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=patrickfav_rocketchat-exporter&metric=coverage)](https://sonarcloud.io/summary/new_code?id=patrickfav_rocketchat-exporter)
 
