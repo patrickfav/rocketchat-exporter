@@ -80,7 +80,7 @@ public interface RocketExporter {
      * @throws IOException on issues during the REST call
      * @throws TooManyRequestException if the server responds with 429, you need to throttle the requests
      */
-    List<Message> exportPrivateGroupMessages(String roomName, String roomId,
+    SortedSet<Message> exportPrivateGroupMessages(SortedSet<Message> messages, String roomName, String roomId,
                                              int offset, int maxMessageCount,
                                              File out, ExportFormat exportFormat) throws IOException, TooManyRequestException;
 
@@ -97,7 +97,7 @@ public interface RocketExporter {
      * @throws IOException on issues during the REST call
      * @throws TooManyRequestException if the server responds with 429, you need to throttle the requests
      */
-    List<Message> exportChannelMessages(String channelName, String channelId,
+    SortedSet<Message> exportChannelMessages(SortedSet<Message> messages, String channelName, String channelId,
                                         int offset, int maxMessageCount,
                                         File out, ExportFormat exportFormat) throws IOException, TooManyRequestException;
 
@@ -114,7 +114,7 @@ public interface RocketExporter {
      * @throws IOException on issues during the REST call
      * @throws TooManyRequestException if the server responds with 429, you need to throttle the requests
      */
-    List<Message> exportDirectMessages(String dmName, String dmId,
+    SortedSet<Message> exportDirectMessages(SortedSet<Message> messages, String dmName, String dmId,
                                        int offset, int maxMessageCount,
                                        File out, ExportFormat exportFormat) throws IOException, TooManyRequestException;
 
@@ -243,76 +243,81 @@ public interface RocketExporter {
         }
 
         @Override
-        public List<Message> exportPrivateGroupMessages(String roomName, String roomId,
+        public SortedSet<Message> exportPrivateGroupMessages(SortedSet<Message> messages, String roomName, String roomId,
                                                         int offset, int maxMessageCount,
                                                         File out, ExportFormat exportFormat) throws IOException, TooManyRequestException {
-            return exportMessages(roomName, roomId, offset, maxMessageCount, ConversationType.GROUP, out, exportFormat);
+            return exportMessages(messages, roomName, roomId, offset, maxMessageCount, ConversationType.GROUP, out, exportFormat);
         }
 
         @Override
-        public List<Message> exportChannelMessages(String channelName, String channelId,
+        public SortedSet<Message> exportChannelMessages(SortedSet<Message> messages, String channelName, String channelId,
                                                    int offset, int maxMessageCount,
                                                    File out, ExportFormat exportFormat) throws IOException, TooManyRequestException {
-            return exportMessages(channelName, channelId, offset, maxMessageCount, ConversationType.CHANNEL, out, exportFormat);
+            return exportMessages(messages, channelName, channelId, offset, maxMessageCount, ConversationType.CHANNEL, out, exportFormat);
         }
 
         @Override
-        public List<Message> exportDirectMessages(String dmName, String dmId,
+        public SortedSet<Message> exportDirectMessages(SortedSet<Message> messages, String dmName, String dmId,
                                                   int offset, int maxMessageCount,
                                                   File out, ExportFormat exportFormat) throws IOException, TooManyRequestException {
-            return exportMessages(dmName, dmId, offset, maxMessageCount, ConversationType.DIRECT_MESSAGES, out, exportFormat);
+            return exportMessages(messages, dmName, dmId, offset, maxMessageCount, ConversationType.DIRECT_MESSAGES, out, exportFormat);
         }
 
-        private List<Message> exportMessages(String contextName, String id,
+        private SortedSet<Message> exportMessages(SortedSet<Message> messages, String contextName, String id,
                                              int offset, int maxMessageCount,
                                              ConversationType conversationType, File out, ExportFormat exportFormat) throws IOException, TooManyRequestException {
             checkAuthenticated();
 
-
-            Response<RocketChatMessageWrapperDto> response;
-            switch (conversationType) {
-                case GROUP:
-                    response = getService().getAllMessagesFromGroup(authHeaders, id, offset, maxMessageCount).execute();
-                    break;
-                case CHANNEL:
-                    response = getService().getAllMessagesFromChannels(authHeaders, id, offset, maxMessageCount).execute();
-                    break;
-                case DIRECT_MESSAGES:
-                    response = getService().getAllMessagesFromDirectMessages(authHeaders, id, offset, maxMessageCount).execute();
-                    break;
-                default:
-                    throw new IllegalStateException();
-            }
-
-            Map<Long, Message> normalizedMessages = new HashMap<>();
-            RocketChatMessageWrapperDto messagesBody;
-
-            if (response.code() == 200 && (messagesBody = response.body()) != null) {
-                for (RocketChatMessageWrapperDto.Message message : messagesBody.getMessages()) {
-                    Instant timestamp = Instant.parse(message.getTs());
-
-                    normalizedMessages.put(timestamp.toEpochMilli(),
-                            new Message(
-                                    message.getMsg(),
-                                    message.getU().getName(),
-                                    contextName,
-                                    timestamp
-                            ));
+            do {
+                Response<RocketChatMessageWrapperDto> response;
+                switch (conversationType) {
+                    case GROUP:
+                        response = getService().getAllMessagesFromGroup(authHeaders, id, offset, maxMessageCount).execute();
+                        break;
+                    case CHANNEL:
+                        response = getService().getAllMessagesFromChannels(authHeaders, id, offset, maxMessageCount).execute();
+                        break;
+                    case DIRECT_MESSAGES:
+                        response = getService().getAllMessagesFromDirectMessages(authHeaders, id, offset, maxMessageCount).execute();
+                        break;
+                    default:
+                        throw new IllegalStateException();
                 }
-            } else if (response.code() == 429) {
-                throw new TooManyRequestException(response.body());
-            } else {
-                throw new IllegalStateException("error response: " + response.code());
-            }
 
-            List<Message> normalizedMessagesList = new ArrayList<>(normalizedMessages.values());
-            normalizedMessagesList.sort(Comparator.comparingLong(m -> m.getTimestamp().toEpochMilli()));
+                Map<Long, Message> normalizedMessages = new HashMap<>();
+                RocketChatMessageWrapperDto messagesBody;
+
+                if (response.code() == 200 && (messagesBody = response.body()) != null) {
+                    for (RocketChatMessageWrapperDto.Message message : messagesBody.getMessages()) {
+                        Instant timestamp = Instant.parse(message.getTs());
+
+                        normalizedMessages.put(timestamp.toEpochMilli(),
+                                new Message(
+                                        message.get_id(),
+                                        message.getMsg(),
+                                        message.getU().getName(),
+                                        contextName,
+                                        timestamp
+                                ));
+                    }
+                    messages.addAll(normalizedMessages.values());
+                    if (messagesBody.getMessages().size() < 100 || messages.size() >= maxMessageCount) {
+                        break;
+                    } else {
+                        offset += 100;
+                    }
+                } else if (response.code() == 429) {
+                    throw new TooManyRequestException(response.body(), offset, messages);
+                } else {
+                    throw new IllegalStateException("error response: " + response.code());
+                }
+            } while (true);
 
             exportFormat.export(
-                    normalizedMessagesList,
+                    new ArrayList<>(messages),
                     new FileOutputStream(out));
 
-            return normalizedMessagesList;
+            return messages;
         }
 
         private void checkAuthenticated() {
