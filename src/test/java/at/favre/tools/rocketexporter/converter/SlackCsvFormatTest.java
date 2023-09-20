@@ -18,9 +18,9 @@ public class SlackCsvFormatTest {
         ByteArrayOutputStream bout = new ByteArrayOutputStream();
         exportFormat.export(
                 List.of(
-                        new Message("m1", "u1", "c1", EPOCH),
-                        new Message("m2", "u2", "c3", EPOCH.plusSeconds(1)),
-                        new Message(null, "u3", "c3", EPOCH)
+                        new Message("a", "m1", "u1", "c1", EPOCH),
+                        new Message("b", "m2", "u2", "c3", EPOCH.plusSeconds(1)),
+                        new Message("c", null, "u3", "c3", EPOCH)
                 ),
                 bout);
 

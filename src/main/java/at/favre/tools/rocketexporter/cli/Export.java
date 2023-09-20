@@ -137,34 +137,38 @@ class Export implements Runnable {
                 toExport.add(allConversations.get(selection));
             }
 
+            int offset = 0;
+            SortedSet<Message> messages = new TreeSet<>();
             for (int i = 0; i < toExport.size(); i++) {
                 Conversation selectedGroup = toExport.get(i);
 
-                final List<Message> messages;
                 final ExportFormat format = new SlackCsvFormat();
-                final int offset = 0;
                 final int maxMsg = maxMessages;
                 final File outFile = generateOutputFile(file, selectedGroup.getName(), type, format);
 
                 try {
                     switch (type) {
                         case GROUP:
-                            messages = exporter.exportPrivateGroupMessages(selectedGroup.getName(), selectedGroup.get_id(), offset, maxMsg, outFile, format);
+                            messages = exporter.exportPrivateGroupMessages(messages, selectedGroup.getName(), selectedGroup.get_id(), offset, maxMsg, outFile, format);
                             break;
                         case CHANNEL:
-                            messages = exporter.exportChannelMessages(selectedGroup.getName(), selectedGroup.get_id(), offset, maxMsg, outFile, format);
+                            messages = exporter.exportChannelMessages(messages, selectedGroup.getName(), selectedGroup.get_id(), offset, maxMsg, outFile, format);
                             break;
                         case DIRECT_MESSAGES:
-                            messages = exporter.exportDirectMessages(selectedGroup.getName(), selectedGroup.get_id(), offset, maxMsg, outFile, format);
+                            messages = exporter.exportDirectMessages(messages, selectedGroup.getName(), selectedGroup.get_id(), offset, maxMsg, outFile, format);
                             break;
                         default:
                             throw new IllegalStateException();
                     }
 
                     out.println("Successfully exported " + messages.size() + " " + type.name + " messages to '" + outFile + "'");
+                    messages.clear();
+                    offset = 0;
                 } catch (TooManyRequestException e) {
                     out.println("Too many requests. Slowing down...");
                     Thread.sleep(5000);
+                    offset = e.getOffset();
+                    messages = e.getMessages();
                     i--;
                 }
             }

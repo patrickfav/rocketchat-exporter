@@ -12,6 +12,8 @@ import org.junit.rules.TemporaryFolder;
 import java.io.File;
 import java.net.URI;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
@@ -116,7 +118,7 @@ public class RocketExporterTest {
     public void exportPrivateGroupMessages() throws Exception {
         login();
         File tempFile = testFolder.newFile("out-test-group.csv");
-        List<Message> msg = exporter.exportPrivateGroupMessages("roomName", "roomId", 0, 2000, tempFile, new SlackCsvFormat());
+        SortedSet<Message> msg = exporter.exportPrivateGroupMessages(new TreeSet<>(), "roomName", "roomId", 0, 2000, tempFile, new SlackCsvFormat());
         assertEquals(48, msg.size());
         assertTrue(tempFile.exists() && tempFile.isFile() && tempFile.length() > 0);
     }
@@ -125,7 +127,7 @@ public class RocketExporterTest {
     public void exportChannelMessages() throws Exception {
         login();
         File tempFile = testFolder.newFile("out-test-channel.csv");
-        List<Message> msg = exporter.exportChannelMessages("roomName", "roomId", 0, 2000, tempFile, new SlackCsvFormat());
+        SortedSet<Message> msg = exporter.exportChannelMessages(new TreeSet<>(), "roomName", "roomId", 0, 2000, tempFile, new SlackCsvFormat());
         assertEquals(3, msg.size());
         assertTrue(tempFile.exists() && tempFile.isFile() && tempFile.length() > 0);
     }
@@ -134,7 +136,7 @@ public class RocketExporterTest {
     public void exportDms() throws Exception {
         login();
         File tempFile = testFolder.newFile("out-test-dm.csv");
-        List<Message> msg = exporter.exportDirectMessages("roomName", "roomId", 0, 2000, tempFile, new SlackCsvFormat());
+        SortedSet<Message> msg = exporter.exportDirectMessages(new TreeSet<>(), "roomName", "roomId", 0, 2000, tempFile, new SlackCsvFormat());
         assertEquals(2, msg.size());
         assertTrue(tempFile.exists() && tempFile.isFile() && tempFile.length() > 0);
     }
